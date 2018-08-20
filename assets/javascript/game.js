@@ -11,13 +11,44 @@
 // play code
     // select word
         // random number generator for word index
-        // save chosen word to variable 'nowWord'
+        // save chosen word toUpperCase to variable 'nowWord'
+
 
     // display blank spaces
         // initiallize variable 'blanks' to empty
-        // for each 'nowWord', add _ to 'blanks'
+        // for each 'nowWord'
+            // str.charAt(i)
+            // add _ to 'blanks'
+        //i = 0
+        // while i < words length   -OR-  try with forEach
+            // if 'nowWord' [i] === ' ' (space), replace 'blanks' [i] with ' '
+
 
     // start with wins = 0
+
+    // if 'wrong' guess length === 10
+        // lose actions
+            // show a losing gif
+            // play losing sound
+    // else 
+        // if all blanks != _
+            // win actions
+        //else
+            // take input onKeyUp toUpperCase
+                // if input == a-z && input != 'wrong' for each
+                    // i = 0
+                    // if input == 'nowWord'[i]
+                        // replace blanks [i] with input
+                        // write to page
+                    // else 
+                        //push input to 'wrong' guess
+                        //reprint wrong guesses
+                            // e.g from w3 schools 
+                                //document.getElementById("demo").innerHTML = fruits.join(", ");
+// start over
+
+
+
 
         // take guess input
         // is guess correct? for each 
@@ -36,38 +67,29 @@
         // show a losing gif
         // play losing sound
 
-// start over
+
 
 
 
 // let wins = 0
 // let wrong = [] 
-    // does this overwrite previous input? look up
+    // does this overwrite previous input? yes!
 // if 'wrong' guess length < 10
     // if blanks for each == _
         // take input
-            // if input (lower case) == a-z && input != 'wrong' for each
+            // if input (upper case) == a-z && input != 'wrong' for each
                 // i = 0
                 // if input == 'nowWord'[i]
                     // replace blanks [i] with input
                     // write to page
-                // else push input to 'wrong' guess
+                // else 
+                    //push input to 'wrong' guess
+
+
     // else win
 
 // else 
     //lose
 
 
-// if 'wrong' guess length === 10
-    // lose actions
-// else 
-    // if any blanks == _
-        // take input onKeyUp toLowerCase
-            // if input == a-z && input != 'wrong' for each
-                // i = 0
-                // if input == 'nowWord'[i]
-                    // replace blanks [i] with input
-                    // write to page
-                // else push input to 'wrong' guess
-    // else win
 
