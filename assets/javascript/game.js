@@ -67,13 +67,12 @@ document.onkeyup = function () {
             document.onkeyup = function (event) {
                 var input = event.key.toUpperCase();
                 console.log(input);
-            
                 // if 'wrong' guess length === 10
                 if (wrong.length === 10) {
                     // lose actions:
                     // show a losing gif
-                    var status = loseGif[Math.floor(Math.random() * loseGif.length)]();
-                    document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + status + '"></iframe>' 
+                    var winLose = loseGif[Math.floor(Math.random() * loseGif.length)]();
+                    document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
                     //display losing message
                     document.getElementById("statM").innerHTML = "That was not the bone you were looking for.";
                     // play losing sound
@@ -85,8 +84,8 @@ document.onkeyup = function () {
                     wins++;
                     document.getElementById("score").innerHTML = wins;
                     // show a winning gif
-                    var status = winGif[Math.floor(Math.random() * winGif.length)];
-                    document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + status + '"></iframe>' 
+                    var winLose = winGif[Math.floor(Math.random() * winGif.length)];
+                    document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
                     //display winning message
                     document.getElementById("statM").innerHTML = "Hey! You won!";
                     // play winning sound
