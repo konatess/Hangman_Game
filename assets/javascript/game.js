@@ -6,33 +6,52 @@
 // losing gifs 
     var loseGif = ['https://giphy.com/embed/qUHxAava8vmUg', 'https://giphy.com/embed/XcL6a7YHm4sWA', 'https://giphy.com/embed/NrZd0l96TbRcI', 'https://giphy.com/embed/35qf6Nu98jJDi', 'https://giphy.com/embed/qKmwOvs6XuRYA', 'https://giphy.com/embed/441veZw9vyx56', 'https://giphy.com/embed/jpbAaUG7cjkZy', 'https://giphy.com/embed/xTkcELnWz4YdJvszfy']
 
-
+// alphabet list ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 // play code
+    // start with wins = 0
+    var wins = 0;
+    document.getElementById("score").innerHTML = wins;
     // select word
         // random number generator for word index
         // save chosen word toUpperCase to variable 'nowWord'
-
+        var nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase();
 
     // display blank spaces
-        // initiallize variable 'blanks' to empty
-        // for each 'nowWord'
-            // str.charAt(i)
-            // add _ to 'blanks'
-        //i = 0
-        // while i < words length   -OR-  try with forEach
-            // if 'nowWord' [i] === ' ' (space), replace 'blanks' [i] with ' '
+        var i = 0
+        var blanks = ""
+        while (i < nowWord.length) {
+            if (nowWord.charAt(i) !== " ") {
+                blanks = blanks.concat("_");
+            }
+            else {
+                blanks = blanks.concat(" ")
+            }
+            i ++;
+        }
+        console.log(nowWord);
+        console.log(blanks);
+        document.getElementById("current").innerHTML = blanks;
 
 
-    // start with wins = 0
+
+
+
+
+        var wrong = [];
+        document.getElementById("guessed").innerHTML = wrong;
 
     // if 'wrong' guess length === 10
+    if (wrong.length === 10) {
         // lose actions
             // show a losing gif
+            var lose = loseGif[Math.floor(Math.random() * loseGif.length)]();
             // play losing sound
+    }
     // else 
         // if all blanks != _
             // win actions
+            
         //else
             // take input onKeyUp toUpperCase
                 // if input == a-z && input != 'wrong' for each
@@ -45,6 +64,9 @@
                         //reprint wrong guesses
                             // e.g from w3 schools 
                                 //document.getElementById("demo").innerHTML = fruits.join(", ");
+
+    // Notes on code options and research
+    // var sth str.search(" ") returns index of space in str. 
 // start over
 
 
