@@ -109,7 +109,7 @@ document.onkeyup = function () {
                     // else 
                     else {
                         //push input to 'wrong' guess
-                        wrong.push(input)
+                        input.match(/[A-z]/gi)? wrong.push(input):null
                         //reprint wrong guesses
                             // e.g from w3 schools 
                                 //document.getElementById("demo").innerHTML = fruits.join(", ");
@@ -120,6 +120,9 @@ document.onkeyup = function () {
             }
 
 }
+
+// (input.match(/[A-z]/gi)?input:"")
+
 
 
 // play code
