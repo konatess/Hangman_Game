@@ -109,7 +109,8 @@ document.onkeyup = function () {
                     // else 
                     else {
                         //push input to 'wrong' guess
-                        input.match(/[A-z]/gi)? wrong.push(input):null
+                        var wrongS = wrong.toString()
+                        input.match(/[A-z]/gi) && !(wrongS.match(input)) ? wrong.push(input):null
                         //reprint wrong guesses
                             // e.g from w3 schools 
                                 //document.getElementById("demo").innerHTML = fruits.join(", ");
