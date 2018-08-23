@@ -15,6 +15,46 @@
     var wins = 0;
     document.getElementById("score").innerHTML = wins;
 
+// Psudo code, round-I-forget-how-many
+
+// basic set up code on page load
+    // set wins to 0
+    // put the press any key to get started in box? Then set it all with 1st key press
+
+    // set all global variables after page load
+        // current word
+        // blanks 
+        // wrong
+        // total guesses
+        // win condition (!(blanks.includes("_")))
+        // lose condition (wrong.length > total guesses -1)
+        // play condition (!(win condition) && !(lose condtition))
+        
+    // list of functions to be called
+        // reset function
+            // need to reset
+                // current word
+                // blanks
+                // wrong
+                // status gif
+            // 
+        // lose function
+            // 
+        // win function
+            //
+        // play function
+            // get input
+            // if nowWord includes input
+            // else wrong guess
+
+// do while loop?
+    // loop condition: play conditions
+    // play function
+    // check play conditions again
+        // (lose condition variable ? lose function : (win condition variable ? win function : null))
+
+
+
 // after game start, what needs to happen least often?
     // before play
         // word selection
