@@ -19,235 +19,105 @@
 
 // basic set up code on page load
     // set wins to 0
-    // put the press any key to get started in box? Then set it all with 1st key press
+    // TODO: put the press any key to get started in box? Then set it all with 1st key press
+
+    // TODO: remove console.logs when code works
 
     // set all global variables after page load
         // current word
+        var nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase();
         // blanks 
+        var blanks = ""
         // wrong
-        // total guesses
+        var wrong = [];
+        // wrong guesses allowed
+        var guesses = 10
         // win condition (!(blanks.includes("_")))
+        var wC = !(blanks.includes("_"))
         // lose condition (wrong.length > total guesses -1)
+        var lC = wrong.length === guesses
         // play condition (!(win condition) && !(lose condtition))
+        var pC = !(wC) && !(lC)
         
-    // list of functions to be called
+    // functions to be called
         // reset function
-            // need to reset
-                // current word
-                // blanks
-                // wrong
                 // status gif
-            // 
+        function reset() {
+            // current word
+                nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase();
+            // blanks
+                for (var i = 0; i < nowWord.length; i++) {
+                    blanks = ""
+                    if (nowWord.charAt(i) !== " ") {
+                        blanks = blanks.concat("_");
+                    }
+                    else {
+                        blanks = blanks.concat(" ")
+                    }
+                }
+                document.getElementById("current").innerHTML = blanks;
+            // wrong
+                wrong = [];
+            // status gif
+                document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="https://giphy.com/embed/xP6RR7jlxpmMw"></iframe>' 
+            // status message
+                document.getElementById("statM").innerHTML = "Hmmmmm...";
+        }
         // lose function
-            // 
+            function lose() {
+                // set status gif to lose
+                var winLose = loseGif[Math.floor(Math.random() * loseGif.length)]();
+                document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
+                // set status message to lose
+                document.getElementById("statM").innerHTML = "That was not the bone you were looking for.<br>Press any key to try again.";
+                // onkeyup, call reset function
+                document.onkeyup = reset();
+            }
         // win function
-            //
+            function win() {
+                // count up wins
+                wins++;
+                document.getElementById("score").innerHTML = wins;
+                // set status gif to win
+                var winLose = winGif[Math.floor(Math.random() * winGif.length)];
+                    document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
+                // set status message to win
+                document.getElementById("statM").innerHTML = "Hey! You won!<br>Press any key to try again.";
+                // onkeyup, call reset function
+                document.onkeyup = reset();
+            }
         // play function
             // get input
             // if nowWord includes input
-            // else wrong guess
+            function playGame(event) {
+                    var input = event.key.toUpperCase();
+                    console.log(input);
+                if (nowWord.includes(input)) {
+                    for (var j =0; j < nowWord.length; j++)
+                        // if input is in 'nowWord'
+                        if (input === nowWord.charAt(j)) {
+                        // replace blanks [i] with input
+                        blanksArr = blanks.split("")
+                        blanksArr[j] = nowWord.charAt(j)
+                        blanks = blanksArr.join("")
+                        }
+                        console.log(blanks)
+                        // write to page
+                        document.getElementById("current").innerHTML = blanks;
+                }
+                // else wrong guess
+                else {
+                    //push input to 'wrong' guess
+                    var wrongS = wrong.toString()
+                    input.match(/[A-z]/gi) && !(wrongS.match(input)) ? wrong.push(input):null
+                    //reprint wrong guesses
+                        // e.g from w3 schools 
+                            //document.getElementById("demo").innerHTML = fruits.join(", ");
+                    document.getElementById("guessed").innerHTML = wrong.join(", ");
+                    document.getElementById("remaining").innerHTML = "You have " + (10 - wrong.length) + " guesses remaining.";
+                }
+            }
 
 // do while loop?
-    // loop condition: play conditions
-    // play function
-    // check play conditions again
-        // (lose condition variable ? lose function : (win condition variable ? win function : null))
-
-
-
-// after game start, what needs to happen least often?
-    // before play
-        // word selection
-        // set up initial blank word
-        // set up empty wrong guesses
-        // initialize guesses remaining
-        // reset win/lose gif and message
-    // after play
-        // update wins
-        // display win/lose gif and message
-// what's next least?
-    // win/lose/keep playing loop
-
-    // inside that loop
-        // take in input
-        // compare input
-        // save input in blanks or in wrong guesses
-
-
-
-// let's try this again
-
-// first, whole function starts on key up
-document.onkeyup = function () {
-    // next, all the before play tasks
-        //word selection
-        var nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase();
-        console.log(nowWord)
-        // set up initial blank word
-        var blanks = ""
-        for (var i = 0; i < nowWord.length; i++) {
-            if (nowWord.charAt(i) !== " ") {
-                blanks = blanks.concat("_");
-            }
-            else {
-                blanks = blanks.concat(" ")
-            }
-        }
-        document.getElementById("current").innerHTML = blanks;
-        // set up empty wrong guesses
-        var wrong = [];
-        document.getElementById("guessed").innerHTML = wrong;
-        // initialize guesses remaining
-        document.getElementById("remaining").innerHTML = "You have " + (10 - wrong.length) + " guesses remaining.";
-        // reset win/lose gif and message
-        document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="https://giphy.com/embed/xP6RR7jlxpmMw"></iframe>' 
-        document.getElementById("statM").innerHTML = "Hmmmmm..."
-
-        // third, win/lose/keep playing loop
-            document.onkeyup = function (event) {
-                var input = event.key.toUpperCase();
-                console.log(input);
-                // if 'wrong' guess length === 10
-                if (wrong.length === 10) {
-                    // lose actions:
-                    // show a losing gif
-                    var winLose = loseGif[Math.floor(Math.random() * loseGif.length)]();
-                    document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
-                    //display losing message
-                    document.getElementById("statM").innerHTML = "That was not the bone you were looking for.";
-                    // play losing sound
-                }
-                // else if all blanks != _
-                else if (blanks.includes("_") === false) {
-                    // win actions:
-                    // wins = wins + 1
-                    wins++;
-                    document.getElementById("score").innerHTML = wins;
-                    // show a winning gif
-                    var winLose = winGif[Math.floor(Math.random() * winGif.length)];
-                    document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
-                    //display winning message
-                    document.getElementById("statM").innerHTML = "Hey! You won!";
-                    // play winning sound
-                }
-                //else
-                else {
-                    // if input == a-z && input != 'wrong' for each
-                    if (nowWord.includes(input)) {
-                        for (var j =0; j < nowWord.length; j++)
-                            // if input is in 'nowWord'
-                            if (input === nowWord.charAt(j)) {
-                            // replace blanks [i] with input
-                            blanksArr = blanks.split("")
-                            blanksArr[j] = nowWord.charAt(j)
-                            blanks = blanksArr.join("")
-                            }
-                            console.log(blanks)
-                            // write to page
-                            document.getElementById("current").innerHTML = blanks;
-                    }
-                    // else 
-                    else {
-                        //push input to 'wrong' guess
-                        var wrongS = wrong.toString()
-                        input.match(/[A-z]/gi) && !(wrongS.match(input)) ? wrong.push(input):null
-                        //reprint wrong guesses
-                            // e.g from w3 schools 
-                                //document.getElementById("demo").innerHTML = fruits.join(", ");
-                        document.getElementById("guessed").innerHTML = wrong.join(", ");
-                        document.getElementById("remaining").innerHTML = "You have " + (10 - wrong.length) + " guesses remaining.";
-                    }
-                }
-            }
-
-}
-
-// (input.match(/[A-z]/gi)?input:"")
-
-
-
-// play code
-
-    // select word
-        // random number generator for word index
-        // save chosen word toUpperCase to variable 'nowWord'
-                // display blank spaces
-    //game play loop
-        // if 'wrong' guess length === 10
-        // lose actions
-            // show a losing gif
-            ///////////////////
-            //display losing message
-            // play losing sound
-        // else 
-            // if all blanks != _
-            // for (var i = 0; i < blanks.length; i++) {
-                    // win actions
-                        // wins = wins + 1
-                        // show a winning gif
-                        ///////////////////
-                        //display winning message
-                        // play winning sound
-                //else
-                    // take input onKeyUp toUpperCase
-                        // if input == a-z && input != 'wrong' for each
-                                    // if input is in 'nowWord'
-                                    // replace blanks [i] with input
-                                    // write to page
-                            // else 
-                                //push input to 'wrong' guess
-                                //reprint wrong guesses
-                                    // e.g from w3 schools 
-                                        //document.getElementById("demo").innerHTML = fruits.join(", ");
-
-    // Notes on code options and research
-    // var sth str.search(" ") returns index of space in str. 
-    // alphabet list ABCDEFGHIJKLMNOPQRSTUVWXYZ
-// start over
-
-
-
-
-        // take guess input
-        // is guess correct? for each 
-            // if guess correct, display letter(s) in correct location
-            // if guess not correct, append to guessed list
-
-        // if all letters filled in, win 
-            // in other words, if != _
-        // else if wrong guess length = 10, lose
-        // else, keep playing
-    // if win 
-        // wins = wins + 1
-        // show a winning gif
-        // play winning sound
-    // else lose
-        // show a losing gif
-        // play losing sound
-
-
-
-
-
-// let wins = 0
-// let wrong = [] 
-    // does this overwrite previous input? yes!
-// if 'wrong' guess length < 10
-    // if blanks for each == _
-        // take input
-            // if input (upper case) == a-z && input != 'wrong' for each
-                // i = 0
-                // if input == 'nowWord'[i]
-                    // replace blanks [i] with input
-                    // write to page
-                // else 
-                    //push input to 'wrong' guess
-
-
-    // else win
-
-// else 
-    //lose
-
 
 
