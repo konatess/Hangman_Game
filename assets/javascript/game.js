@@ -16,17 +16,14 @@
     var wins = 0;
     document.getElementById("score").innerHTML = wins;
 
-// Psudo code, round-I-forget-how-many
-
 // basic set up code on page load
     // set wins to 0
-    // TODO: put the press any key to get started in box? Then set it all with 1st key press
-
-    // TODO: remove console.logs when code works
 
     // set all global variables after page load
         // current word
         var nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase();
+        // to prevent repeating word twice in a row.
+        var lastWord = nowWord
         // blanks 
         var blanks = ""
         for (var i = 0; i < nowWord.length; i++) {
@@ -53,6 +50,7 @@
             plop = true;
             // current word
                 nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase();
+                nowWord === lastWord ? nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase() : null
             // blanks
                 blanks = ""
                     for (var i = 0; i < nowWord.length; i++) {
@@ -84,7 +82,8 @@
                 document.getElementById("statM").innerHTML = "That was not the bone you were looking for.<br>Press any key to try again.";
                 // TODO: play lose sound
                 // document.getElementById("lose-sound").play();
-                
+                // don't repeat
+                lastWord = nowWord
             }
         // win function
             function win() {
@@ -100,17 +99,13 @@
                 document.getElementById("statM").innerHTML = "Hey! You won!<br>Press any key to try again.";
                 // TODO: play win sound
                 // document.getElementById("win-sound").play();
-
-
-                // onkeyup, call reset function
-                // document.onkeyup = reset(); 
+                lastWord = nowWord
             }
         // play function
             // get input
             // if nowWord includes input
             function playGame(event) {
                     var input = event.key.toUpperCase();
-                    console.log(input);
                 if (nowWord.includes(input)) {
                     for (var j =0; j < nowWord.length; j++)
                         // if input is in 'nowWord'
@@ -120,7 +115,6 @@
                         blanksArr[j] = nowWord.charAt(j)
                         blanks = blanksArr.join("")
                         }
-                        console.log(blanks)
                         // write to page
                         document.getElementById("current").innerHTML = blanks;
                 }
