@@ -80,8 +80,8 @@
                 document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
                 // set status message to lose
                 document.getElementById("statM").innerHTML = "That was not the bone you were looking for.<br>Press any key to try again.";
-                // TODO: play lose sound
-                // document.getElementById("lose-sound").play();
+                // play lose sound
+                document.getElementById("lose-sound").play();
                 // don't repeat
                 lastWord = nowWord
             }
@@ -97,8 +97,8 @@
                     document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
                 // set status message to win
                 document.getElementById("statM").innerHTML = "Hey! You won!<br>Press any key to try again.";
-                // TODO: play win sound
-                // document.getElementById("win-sound").play();
+                // play win sound
+                document.getElementById("win-sound").play();
                 lastWord = nowWord
             }
         // play function
