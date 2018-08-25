@@ -10,6 +10,7 @@
     var winGif = ['https://giphy.com/embed/OUp72ZhJAtsJO', 'https://giphy.com/embed/hk3W7hxkLDkA0', 'https://giphy.com/embed/14na7KVDve6rHq', 'https://giphy.com/embed/jNSooJdHt3Sta', 'https://giphy.com/embed/3oriNU7UXUPX91SvNC', 'https://giphy.com/embed/3oEjI53nBYOOEQgDcY', 'https://giphy.com/embed/r6aZOSxM0hOuY', 'https://giphy.com/embed/8FUNh9xgfc8HC']
 // losing gifs 
     var loseGif = ['https://giphy.com/embed/qUHxAava8vmUg', 'https://giphy.com/embed/XcL6a7YHm4sWA', 'https://giphy.com/embed/NrZd0l96TbRcI', 'https://giphy.com/embed/35qf6Nu98jJDi', 'https://giphy.com/embed/qKmwOvs6XuRYA', 'https://giphy.com/embed/441veZw9vyx56', 'https://giphy.com/embed/jpbAaUG7cjkZy', 'https://giphy.com/embed/xTkcELnWz4YdJvszfy']
+    
 
 // start with wins = 0
     var wins = 0;
@@ -28,36 +29,45 @@
         var nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase();
         // blanks 
         var blanks = ""
+        for (var i = 0; i < nowWord.length; i++) {
+            if (nowWord.charAt(i) !== " ") {
+                blanks = blanks.concat("_");
+            }
+            else {
+                blanks = blanks.concat(" ")
+            }
+        }
+        document.getElementById("current").innerHTML = blanks;
         // wrong
         var wrong = [];
         // wrong guesses allowed
         var guesses = 10
-        // win condition (!(blanks.includes("_")))
-        var wC = !(blanks.includes("_"))
-        // lose condition (wrong.length > total guesses -1)
-        var lC = wrong.length === guesses
-        // play condition (!(win condition) && !(lose condtition))
-        var pC = !(wC) && !(lC)
+        // to reset or not
+        var plop = true;
         
     // functions to be called
         // reset function
                 // status gif
         function reset() {
+            // to stop immediate reset
+            plop = true;
             // current word
                 nowWord = bones[Math.floor(Math.random() * bones.length)].toUpperCase();
             // blanks
-                for (var i = 0; i < nowWord.length; i++) {
-                    blanks = ""
-                    if (nowWord.charAt(i) !== " ") {
-                        blanks = blanks.concat("_");
+                blanks = ""
+                    for (var i = 0; i < nowWord.length; i++) {
+                        if (nowWord.charAt(i) !== " ") {
+                            blanks = blanks.concat("_");
+                        }
+                        else {
+                            blanks = blanks.concat(" ")
+                        }
                     }
-                    else {
-                        blanks = blanks.concat(" ")
-                    }
-                }
                 document.getElementById("current").innerHTML = blanks;
             // wrong
-                wrong = [];
+                wrong.length = 0;
+                document.getElementById("guessed").innerHTML = wrong;
+                document.getElementById("remaining").innerHTML = "You have " + (10 - wrong.length) + " guesses remaining.";
             // status gif
                 document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="https://giphy.com/embed/xP6RR7jlxpmMw"></iframe>' 
             // status message
@@ -65,16 +75,21 @@
         }
         // lose function
             function lose() {
+                // to reset
+                plop = false;
                 // set status gif to lose
-                var winLose = loseGif[Math.floor(Math.random() * loseGif.length)]();
+                var winLose = loseGif[Math.floor(Math.random() * loseGif.length)];
                 document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
                 // set status message to lose
                 document.getElementById("statM").innerHTML = "That was not the bone you were looking for.<br>Press any key to try again.";
-                // onkeyup, call reset function
-                document.onkeyup = reset();
+                // TODO: play lose sound
+                // document.getElementById("lose-sound").play();
+                
             }
         // win function
             function win() {
+                // to reset
+                plop = false;
                 // count up wins
                 wins++;
                 document.getElementById("score").innerHTML = wins;
@@ -83,8 +98,12 @@
                     document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
                 // set status message to win
                 document.getElementById("statM").innerHTML = "Hey! You won!<br>Press any key to try again.";
+                // TODO: play win sound
+                // document.getElementById("win-sound").play();
+
+
                 // onkeyup, call reset function
-                document.onkeyup = reset();
+                // document.onkeyup = reset(); 
             }
         // play function
             // get input
@@ -109,15 +128,16 @@
                 else {
                     //push input to 'wrong' guess
                     var wrongS = wrong.toString()
-                    input.match(/[A-z]/gi) && !(wrongS.match(input)) ? wrong.push(input):null
+                    input.match(/[A-Z]/gi) && input.length === 1 && !(wrongS.match(input)) ? wrong.push(input):null
                     //reprint wrong guesses
                         // e.g from w3 schools 
                             //document.getElementById("demo").innerHTML = fruits.join(", ");
                     document.getElementById("guessed").innerHTML = wrong.join(", ");
                     document.getElementById("remaining").innerHTML = "You have " + (10 - wrong.length) + " guesses remaining.";
                 }
+                (wrong.length === guesses ? lose() : (!(blanks.includes("_")) ? win() : null));
             }
-
-// do while loop?
+// reset();
+document.onkeyup = function() { plop ? playGame(event) : reset() };
 
 
