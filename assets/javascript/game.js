@@ -94,7 +94,7 @@
                 document.getElementById("score").innerHTML = wins;
                 // set status gif to win
                 var winLose = winGif[Math.floor(Math.random() * winGif.length)];
-                    document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
+                document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="' + winLose + '"></iframe>' 
                 // set status message to win
                 document.getElementById("statM").innerHTML = "Hey! You won!<br>Press any key to try again.";
                 // play win sound
@@ -102,10 +102,10 @@
                 lastWord = nowWord
             }
         // play function
-            // get input
-            // if nowWord includes input
             function playGame(event) {
-                    var input = event.key.toUpperCase();
+                // get input
+                var input = event.key.toUpperCase();
+                // if nowWord includes input
                 if (nowWord.includes(input)) {
                     for (var j =0; j < nowWord.length; j++)
                         // if input is in 'nowWord'
@@ -131,7 +131,7 @@
                 }
                 (wrong.length === guesses ? lose() : (!(blanks.includes("_")) ? win() : null));
             }
-// reset();
+// call all the functions
 document.onkeyup = function() { plop ? playGame(event) : reset() };
 
 
