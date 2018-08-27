@@ -65,7 +65,7 @@
             // wrong
                 wrong.length = 0;
                 document.getElementById("guessed").innerHTML = wrong;
-                document.getElementById("remaining").innerHTML = "You have " + (10 - wrong.length) + " guesses remaining.";
+                document.getElementById("remaining").innerHTML = 10 - wrong.length;
             // status gif
                 document.getElementById("statGif").innerHTML = '<iframe class="embed-responsive-item giphy-embed" src="https://giphy.com/embed/xP6RR7jlxpmMw"></iframe>' 
             // status message
@@ -127,7 +127,7 @@
                         // e.g from w3 schools 
                             //document.getElementById("demo").innerHTML = fruits.join(", ");
                     document.getElementById("guessed").innerHTML = wrong.join(", ");
-                    document.getElementById("remaining").innerHTML = "You have " + (10 - wrong.length) + " guesses remaining.";
+                    document.getElementById("remaining").innerHTML = 10 - wrong.length;
                 }
                 (wrong.length === guesses ? lose() : (!(blanks.includes("_")) ? win() : null));
             }
